@@ -1,15 +1,37 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import OAuth from "../components/OAuth";
+import { toast } from "react-toastify";
+import {  getAuth, sendPasswordResetEmail } from "firebase/auth";
 
 
 export default function ForgotPassword() {
 
   const [email, setEmail] = useState("");
-
+  const navigate = useNavigate();
 
   function onChange(e){
     setEmail(e.target.value);
+  }
+  async function onSubmit(e){
+    e.preventDefault();
+    try {
+      const auth = getAuth();
+
+       // Check if the email is registered
+      //  const signInMethods = await fetchSignInMethodsForEmail(auth, email);
+      //  console.log('signInMethods:', signInMethods); // Debugging info
+      //  if (signInMethods.length === 0) {
+      //    toast.error('Email is not registered');
+      //    return;
+      //  }
+ 
+      await sendPasswordResetEmail(auth, email);
+      toast.success("Email was sent");
+      navigate("/signIn");
+    } catch (error) {
+      toast.error('Failed to send reset password');
+    }
   }
   return (
     <section>
@@ -19,7 +41,7 @@ export default function ForgotPassword() {
           <img src="/forgotPassword.png" alt="key picture" className="w-full rounded-3xl" />
         </div>
         <div className="mb-6 w-full md:w-[67%] lg:w-[40%] lg:ml-20">
-          <form action="" >
+          <form onSubmit={onSubmit} >
             <input className="bg-white mb-8 w-full px-4 py-2 text-xl text-gray-600 border-gray-300 rounded transition ease-in-out" type="email" id="email" value={email} onChange={onChange} placeholder="Email address"/>
           
            

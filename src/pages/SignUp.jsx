@@ -1,11 +1,17 @@
 import { useState } from "react";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import OAuth from "../components/OAuth";
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import {db} from "../firebase";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name:"",
     email: "",
@@ -16,6 +22,47 @@ export default function SignUp() {
   function onChange(e){
     setFormData({...formData, [e.target.id]: e.target.value});
   }
+
+  async function onSubmit(e){
+    // prevent the default refresh form submission
+    e.preventDefault();
+    try {
+      const auth = getAuth();
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      updateProfile(auth.currentUser, {
+        displayName: name
+      }); // update the user profile
+      const user = userCredential.user;
+      const formDataCopy = {...formData};
+      delete formDataCopy.password;
+      formDataCopy.timestamp = serverTimestamp();
+      await setDoc(doc(db, "users", user.uid), formDataCopy);
+    
+      // redirect to the home page
+      navigate("/");
+      toast.success("Signed up successfully");
+    } catch (error) {
+      if (error.code === "auth/email-already-in-use") {
+        toast.error("The email address is already in use by another account");
+      }else if (error.code === "auth/missing-email") {
+        toast.error("An email address must be provided");
+      }else if (error.code === "auth/invalid-email") {
+        toast.error("The email address is not valid");
+      }else if (error.code === "auth/network-request-failed") {
+        toast.error("Network error, check your internet connection");
+      } else if (error.code === "auth/too-many-requests") {
+        toast.error("Too many requests, try again later");
+      } else if (error.code === "auth/operation-not-allowed") {
+        toast.error("The email/password accounts are not enabled");
+      } else{
+        toast.error('Something went wrong with the registration');
+      }
+      console.log(error);
+      
+
+    }
+  }
+
   return (
     <section>
       <h1 className="text-3xl text-center mt-5 font-bold">Sign Up</h1>
@@ -24,7 +71,7 @@ export default function SignUp() {
           <img src="/key.png" alt="picture" className="w-full  rounded-3xl" />
         </div>
         <div className="mb-6 w-full md:w-[67%] lg:w-[40%] lg:ml-20">
-          <form action="" >
+          <form onSubmit={onSubmit}>
             <input className="bg-white mb-6 w-full px-4 py-2 text-xl text-gray-600 border-gray-300 rounded transition ease-in-out" type="text" id="name" value={name} onChange={onChange} placeholder="Full name"/>
             
             <input className="bg-white mb-2 w-full px-4 py-2 text-xl text-gray-600 border-gray-300 rounded transition ease-in-out" type="email" id="email" value={email} onChange={onChange} placeholder="Email address"/>

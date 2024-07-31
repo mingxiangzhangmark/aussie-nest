@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 body{
-    background-color: #e5eaf2;
+    background-color: #FAFBFF
+    /* #e5eaf2; */
 }
 html {
     overflow-y: scroll;
