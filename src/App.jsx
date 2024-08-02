@@ -9,13 +9,49 @@ import SignUp from "./pages/SignUp";
 import ErrorPage from "./pages/ErrorPage";
 import Layout from "./Layout";
 import Offer from "./pages/Offer";
+import AccountDetail from "./pages/AccountDetail";
+import AccountSecurity from "./pages/AccountSecurity";
+import CreateList from "./pages/CreateList";
+import MyListing from "./pages/MyListing";
+import PrivateRoute from "./components/PrivateRoute";
 
 
+
+
+
+// function App() {
+  
+//   const router = createBrowserRouter([
+//     {
+//       path: '/',
+//       element: <Layout />,
+//       errorElement: <ErrorPage />,
+//       children: [
+//         { path: '/', element: <Home /> },
+//         { path: '/about', element: <About /> },
+
+//         { path: '/profile', element: <Profile /> },
+//         { path: '/forgotPassword', element: <ForgotPassword /> },
+//         { path: '/signIn', element: <SignIn /> },
+//         { path: '/signUp', element: <SignUp /> },
+//         { path: '/offer', element: <Offer /> },
+//         { path: "profile/accountDetail",element:  <AccountDetail /> },
+//         { path: "profile/accountSecurity",element:  <AccountSecurity/> },
+//         { path: "profile/createList",element:  <CreateList/> },
+//         { path: "profile/myListing",element:  <MyListing/> },
+//       ],
+//     },
+//   ]);
+
+//   return (
+//     <RouterProvider router={router} />
+//   );
+// }
+// export default App
 
 
 
 function App() {
-  
   const router = createBrowserRouter([
     {
       path: '/',
@@ -24,22 +60,29 @@ function App() {
       children: [
         { path: '/', element: <Home /> },
         { path: '/about', element: <About /> },
-        { path: '/profile', element: <Profile /> },
-        { path: '/forgotPassword', element: <ForgotPassword /> },
         { path: '/signIn', element: <SignIn /> },
         { path: '/signUp', element: <SignUp /> },
         { path: '/offer', element: <Offer /> },
+        {
+          path: '/profile',
+          element: <PrivateRoute />, //use the /profile route to check if the user is logged in
+          children: [
+            { path: '', element: <Profile /> },
+            { path: 'accountDetail', element: <AccountDetail /> },
+            { path: 'accountSecurity', element: <AccountSecurity /> },
+            { path: 'createList', element: <CreateList /> },
+            { path: 'myListing', element: <MyListing /> },
+          ],
+        },
+        { path: '/forgotPassword', element: <ForgotPassword /> },
       ],
     },
   ]);
 
   return (
     <RouterProvider router={router} />
-    // <RouterProvider router={router}>
-     // * <AutoLogin /> 
-    // </RouterProvider> 
   );
 }
-export default App
 
+export default App;
 

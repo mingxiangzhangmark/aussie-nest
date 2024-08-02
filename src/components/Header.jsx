@@ -1,10 +1,29 @@
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
+import { IoPersonOutline } from "react-icons/io5";
+import { useAuth } from "../hooks/AuthContext";
 
 
 export default function Header() {
+    // eslint-disable-next-line no-unused-vars
+    const [pageState, setPageState] = useState(false);
 
+    const {user } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
+    const auth = getAuth();
+    useEffect(() => {
+        onAuthStateChanged(auth,(user) => {
+            if (user) {
+                setPageState(true);
+            }else{
+                setPageState(false);
+            }
+        })
+    }, [auth]);
+
+
 
     const handleSignUpClick = () => {
       navigate('/signUp');
@@ -26,13 +45,29 @@ export default function Header() {
             </a>
 
             <ul className="flex space-x-8 ">
-                <li><a href="/" className= {`font-medium py-5 text-lg border-b-[3px] transition duration-300 ease-in-out  ${pathRoute("/") ? "text-blue-600 border-b-blue-600" : "border-b-transparent hover:text-gray-500"}`}>Home</a></li>
-                <li><a href="/offer" className={`font-medium py-5 text-lg border-b-[3px] transition duration-300 ease-in-out  ${pathRoute("/offer") ? "text-blue-500 border-b-blue-600" : "border-b-transparent hover:text-gray-500"}`}>Offer</a></li>
-                <li><a href="/about" className={`font-medium py-5 text-lg border-b-[3px] transition duration-300 ease-in-out  ${pathRoute("/about") ? "text-blue-500 border-b-blue-600" : "border-b-transparent hover:text-gray-600"}`}>About</a></li>
-                <li><a href="/signIn" className={`font-medium py-5 text-lg border-b-[3px] transition duration-300 ease-in-out ${pathRoute("/signIn") ? "text-blue-600 border-b-blue-500" : "border-b-transparent hover:text-gray-500"}`}>Sign in</a></li>
-                <li className="mt-[-3px]">
-                    <button className="bg-blue-600 text-white  font-medium text-lg px-2 py-1 transition duration-300 ease-in-out  rounded hover:bg-blue-700" onClick={handleSignUpClick}>Sign up</button>
-                </li>
+                <li><a href="/" className= {`font-medium py-5 text-lg border-b-[3px] transition duration-300 ease-in-out text-gray-700 ${pathRoute("/") ? "text-blue-600 border-b-blue-600" : "border-b-transparent hover:text-gray-500"}`}>Home</a></li>
+                <li><a href="/offer" className={`font-medium text-gray-700 py-5 text-lg border-b-[3px] transition duration-300 ease-in-out  ${pathRoute("/offer") ? "text-blue-500 border-b-blue-600" : "border-b-transparent hover:text-gray-500"}`}>Offer</a></li>
+                <li><a href="/about" className={`font-medium text-gray-700 py-5 text-lg border-b-[3px] transition duration-300 ease-in-out  ${pathRoute("/about") ? "text-blue-500 border-b-blue-600" : "border-b-transparent hover:text-gray-600"}`}>About</a></li>
+
+
+
+                {user ? (
+                    <li className=""><a href="/profile" className={`flex items-center font-medium text-gray-700 text-lg border-gray-700 rounded-2xl border-2 transition duration-300 ease-in-out ${pathRoute("/profile")}`}>
+                        <div className="text-xl px-2"><IoPersonOutline /></div>
+                        <div className="pr-2">Profile</div>
+                    </a></li>
+                ) : (
+                    <>
+                        <li><a href="/signIn" className={`font-medium text-gray-700 py-5 text-lg border-b-[3px] transition duration-300 ease-in-out ${pathRoute("/signIn") ? "text-blue-600 border-b-blue-500" : "border-b-transparent hover:text-gray-500"}`}>Sign in</a></li>
+                        <li className="mt-[-3px]">
+                            <button className="bg-blue-600 text-white font-medium text-lg px-2 py-1 transition duration-300 ease-in-out rounded hover:bg-blue-700" onClick={handleSignUpClick}>Sign up</button>
+                        </li>
+                    </>
+                )}
+    
+
+
+                
             </ul>
         </nav>
         </header>
