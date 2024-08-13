@@ -182,7 +182,7 @@ export default function CreateList() {
   return (
     <div className="flex h-screen">
       <MyProfileSideBar />
-      <div className="flex-grow bg-white rounded-lg border p-10 m-4 ml-[22%] overflow-y-auto">
+      <div className="flex-grow bg-white rounded-lg border px-10 pt-5 m-4 ml-[22%] pb-10 overflow-y-auto">
         <h1 className="text-2xl font-medium mb-4 text-gray-700">Sell or Rent Your Place</h1>
 
         <form onSubmit={onSubmit}>
@@ -195,7 +195,7 @@ export default function CreateList() {
                   id="type"
                   onClick={onChange}
                   value="rent"
-                  className={`${type === 'rent'? ("cursor-pointer shrink-0 rounded-t-xl border border-gray-300 border-b-white p-2 px-10 text-sm font-medium text-blue-600") : (("cursor-pointer border border-transparent p-2 px-10 text-sm font-medium text-gray-500 hover:text-gray-700" ))}`} 
+                  className={`${type === 'rent'? ("cursor-pointer shrink-0 rounded-t-xl border border-gray-300 border-b-white p-2 px-20 text-sm font-medium text-blue-600") : (("cursor-pointer border border-transparent p-2 px-20 text-sm font-medium text-gray-500 hover:text-gray-700" ))}`} 
               
                 >Rent</button>
 
@@ -205,7 +205,7 @@ export default function CreateList() {
                   onClick = {onChange}
                   value="sell"
                   className=
-                  {`${type === 'sell' ? ("cursor-pointer shrink-0 rounded-t-xl border border-gray-300 border-b-white p-2 px-10 text-sm font-medium text-blue-600") : (("cursor-pointer border border-transparent p-2 px-10 text-sm font-medium text-gray-500 hover:text-gray-700" ))}`} 
+                  {`${type === 'sell' ? ("cursor-pointer shrink-0 rounded-t-xl border border-gray-300 border-b-white p-2 px-20 text-sm font-medium text-blue-600") : (("cursor-pointer border border-transparent p-2 px-20 text-sm font-medium text-gray-500 hover:text-gray-700" ))}`} 
                 >
                   Sell
                 </button>

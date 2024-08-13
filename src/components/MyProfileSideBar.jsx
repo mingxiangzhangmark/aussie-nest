@@ -1,6 +1,13 @@
 import { getAuth } from "firebase/auth";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
+import { ImProfile } from "react-icons/im";
+import { FaHome } from "react-icons/fa";
+import { FaListUl } from "react-icons/fa";
+import { MdOutlineSettings } from "react-icons/md";
+import { TbArrowsExchange } from "react-icons/tb";
+import { AiOutlineSafetyCertificate } from "react-icons/ai";
+import { TbLogout } from "react-icons/tb";
 
 export default function MyProfileSideBar() {
    const auth = getAuth();
@@ -14,43 +21,48 @@ export default function MyProfileSideBar() {
     toast.success('Logged out');
   }
     return (
-      <div className="flex h-screen flex-col justify-between border-e bg-white w-[20%] fixed">
-        <div className="px-4 py-1 overflow-y-auto">
+      <div className="flex h-screen flex-col justify-between border-e bg-white w-[19%] fixed">
+        <div className="px-1 py-1 overflow-y-auto">
           <ul className="mt-6 space-y-1">
-            <li>
+
+            <li className="flex rounded-lg hover:bg-gray-100">
               <a
                 href='/profile'
-                className="block rounded-lg px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                className=" flex rounded-lg pl-4 py-2 text-base font-medium text-gray-500 hover:text-gray-700"
               >
+                <div className="text-xl px-2"><ImProfile /></div>
                 My Profile
               </a>
             </li>
-            <li>
+
+            <li className="flex rounded-lg hover:bg-gray-100">
               <a
                 href="/profile/createList"
-                className="block rounded-lg px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                className="flex rounded-lg px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-700"
               >
+                <div className="text-xl px-2 "><FaHome /></div>
                 My Home
               </a>
             </li>
-            <li>
+            <li className="flex rounded-lg hover:bg-gray-100">
               <a
                 href="/profile/myListing"
-                className="block rounded-lg px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                className="flex rounded-lg px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
               >
+                <div className="text-xl px-2"><FaListUl /></div>
                 My listings
               </a>
             </li>
-            <li>
+            <li >
               <details className="group [&_summary::-webkit-details-marker]:hidden">
                 <summary
                   className="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
-                >
+                > <div className="text-xl px-2"><MdOutlineSettings /></div>
                   <span className="text-base font-medium"> Account Settings </span>
                   <span className="shrink-0 transition duration-300 group-open:-rotate-180">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5"
+                      className="ml-2 h-5 w-5"
                       viewBox="0 0 20 20"
                       fill="currentColor"
                     >
@@ -63,29 +75,32 @@ export default function MyProfileSideBar() {
                   </span>
                 </summary>
                 <ul className="mt-2 space-y-1 px-4">
-                  <li>
+                  <li className="flex rounded-lg hover:bg-gray-100">
                     <a
                       href="/profile/accountDetail"
-                      className="block rounded-lg px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                      className="flex rounded-lg px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
                     >
+                      <div className="text-xl px-2"><TbArrowsExchange /></div>
                       Change Info
                     </a>
-                  </li>
-                  <li>
+                  </li >
+                  <li className="flex rounded-lg hover:bg-gray-100">
                     <a
                       href="/profile/accountSecurity"
-                      className="block rounded-lg px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                      className="flex rounded-lg px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
                     >
+                      <div className="text-xl px-2"><AiOutlineSafetyCertificate /></div>
                       Security
                     </a>
                   </li>
-                  <li>
+                  <li className="flex rounded-lg hover:bg-gray-100">
                     <form action="#">
                       <button
                         onClick={onLogout}
                         type="submit"
-                        className="w-full rounded-lg px-4 py-2 text-base font-medium text-gray-500 [text-align:_inherit] hover:bg-gray-100 hover:text-gray-700"
+                        className="flex w-full rounded-lg px-4 py-2 text-base font-medium text-gray-500 [text-align:_inherit] hover:bg-gray-100 hover:text-gray-700"
                       >
+                        <div className="text-xl px-2"><TbLogout /></div>
                         Logout
                       </button>
                     </form>

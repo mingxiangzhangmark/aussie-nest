@@ -7,4 +7,8 @@ export default defineConfig({
   server:{
     port:3000
   },
+  // solve the issue of react moment error
+  resolve: {
+    mainFields: [],
+  },
 })
