@@ -12,6 +12,8 @@ import { TbLogout } from "react-icons/tb";
 export default function MyProfileSideBar() {
    const auth = getAuth();
    const navigate = useNavigate();
+   const name = auth.currentUser.displayName;
+   const email = auth.currentUser.email;
    
 
    // Logout function
@@ -119,8 +121,8 @@ export default function MyProfileSideBar() {
             />
             <div>
               <p className="text-xs">
-                <strong className="block font-medium">Eric Frusciante</strong>
-                <span> eric@frusciante.com </span>
+                <strong className="block font-medium">{name}</strong>
+                <span className="break-all "> {email}</span>
               </p>
             </div>
           </a>
