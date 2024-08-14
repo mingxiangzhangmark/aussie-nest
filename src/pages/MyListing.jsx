@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import MyProfileSideBar from "../components/MyProfileSideBar";
-import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs, orderBy, query, where } from "firebase/firestore";
 import { db } from "../firebase";
 import { getAuth } from "firebase/auth";
 import ListingItem from "../components/ListingItem";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
 
 
 
 export default function MyListing() {
+  const navigate = useNavigate();
   const auth = getAuth();
   const [listings , setListings] = useState(null);
   const [loading , setLoading] = useState(true);
@@ -29,6 +32,20 @@ export default function MyListing() {
     fetchUserListings()
   }, [auth.currentUser.uid])
 
+  async function onDelete(listingID) {
+    if (window.confirm("Are you sure you want to delete?")) {
+      await deleteDoc(doc(db, "listings", listingID));
+      const updatedListings = listings.filter(
+        (listing) => listing.id !== listingID
+      );
+      setListings(updatedListings);
+      toast.success("Successfully deleted the property");
+    }
+  }
+  function onEdit(listingID) {
+    navigate(`/edit-listing/${listingID}`);
+  }
+
   return (
     <div className="flex h-screen">
       <MyProfileSideBar />
@@ -49,8 +66,8 @@ export default function MyListing() {
                   key={listing.id}
                   id={listing.id}
                   listing={listing.data}
-                  // onDelete={() => onDelete(listing.id)}
-                  // onEdit={() => onEdit(listing.id)}
+                  onDelete={() => onDelete(listing.id)}
+                  onEdit={() => onEdit(listing.id)}
                 />
                 // console.log(listing.data.name)
                 

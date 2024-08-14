@@ -14,6 +14,8 @@ import AccountSecurity from "./pages/AccountSecurity";
 import CreateList from "./pages/CreateList";
 import MyListing from "./pages/MyListing";
 import PrivateRoute from "./components/PrivateRoute";
+import EditListing from "./pages/EditListing";
+import PropertyDetail from "./pages/PropertyDetail";
 // import Listing from "./pages/Listing";
 
 
@@ -64,7 +66,8 @@ function App() {
         { path: '/signIn', element: <SignIn /> },
         { path: '/signUp', element: <SignUp /> },
         { path: '/offer', element: <Offer /> },
-        
+        {path: 'edit-listing/:listingId', element: <EditListing />},
+        {path: "/category/:categoryName/:listingId",element: <PropertyDetail />},
         {
           path: '/profile',
           element: <PrivateRoute />, //use the /profile route to check if the user is logged in
@@ -74,7 +77,7 @@ function App() {
             { path: 'accountSecurity', element: <AccountSecurity /> },
             { path: 'createList', element: <CreateList /> },
             { path: 'myListing', element: <MyListing /> },
-            // {path:"category/:categoryName/:listingId",element:<Listing/>}
+            
           ],
         },
         { path: '/forgotPassword', element: <ForgotPassword /> },

@@ -1,21 +1,23 @@
-import { useState } from "react";
-import MyProfileSideBar from "../components/MyProfileSideBar";
-import Loading from "../components/Loading";
-import { toast } from "react-toastify";
-import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
-import { getAuth } from "firebase/auth";
-import {v4 as uuidv4} from "uuid";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+// import React from 'react'
+
+import { doc, getDoc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { db } from "../firebase";
-import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
+import Loading from "../components/Loading";
+import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
+import {v4 as uuidv4} from "uuid";
+import { useNavigate, useParams } from "react-router";
+import { getAuth } from "firebase/auth";
+import { useEffect, useState } from "react";
 
+export default function EditListing() {
 
-export default function CreateList() {
   const navigate = useNavigate();
   const auth = getAuth();
   // eslint-disable-next-line no-unused-vars
   const [geolocationEnabled, setGeolocationEnabled] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [listing, setListing] = useState(null);
   const [formData, setFormData] = useState({
     type: "rent",
     name: "",
@@ -48,6 +50,35 @@ export default function CreateList() {
     longitude,
     images,
   } = formData;
+
+  const params = useParams();
+
+  useEffect(() => {
+    if (listing && listing.userRef !== auth.currentUser.uid) {
+      toast.error("You can't edit this listing");
+      navigate("/");
+    }
+  }, [auth.currentUser.uid, listing, navigate]);
+
+  useEffect(()=>{
+    setLoading(true);
+    async function fetchListing(){
+      const docRef = doc(db, "listings", params.listingId);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        setListing(docSnap.data());
+        setFormData({...docSnap.data()});
+        setLoading(false);
+      }else{
+        setLoading(false);
+        toast.error("Property not found");
+        navigate("/");
+      }
+    }
+    fetchListing();
+  },[navigate, params.listingId]);
+
+
   function onChange(e) {
     let boolean = null;
     if (e.target.value === "true") {
@@ -168,7 +199,8 @@ export default function CreateList() {
     !formDataCopy.offer && delete formDataCopy.discountedPrice;
     delete formDataCopy.latitude;
     delete formDataCopy.longitude;
-    const docRef = await addDoc(collection(db, "listings"), formDataCopy);
+    const docRef = doc(db, "listings",params.listingId)
+    await updateDoc(docRef, formDataCopy);
     setLoading(false);
     toast.success("Property added successfully");
     navigate(`/category/${formDataCopy.type}/${docRef.id}`);
@@ -180,12 +212,15 @@ export default function CreateList() {
 
 
   return (
-    <div className="flex h-screen">
-      <MyProfileSideBar />
-      <div className="flex-grow bg-white rounded-lg border px-10 pt-5 m-4 ml-[22%] pb-10 overflow-y-auto">
-        <h1 className="text-2xl font-medium mb-4 text-gray-700">Sell or Rent Your Place</h1>
+    <>
+    <div className="min-h-screen bg-gradient-to-r from-sky-500 to-indigo-500">
+      <div className="flex justify-center items-center min-h-screen">
+        <div className="bg-white  rounded-lg shadow-lg my-8 p-8 w-full max-w-4xl">
+          <h1 className="text-2xl mb-8 font-bold text-gray-800">Edit Property Details</h1>
+          
 
-        <form onSubmit={onSubmit}>
+
+          <form onSubmit={onSubmit}>
         <div>
           <div className="hidden sm:block">
             <div className="border-b border-gray-200">
@@ -509,7 +544,7 @@ export default function CreateList() {
             <button
               className="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
             >
-              ADD PROPERTY TO WEBSITE FOR SALE/RENT
+              UPDATE DETAILS TO WEBSITE FOR SALE/RENT
             </button>
 
             <p className="mt-4 text-sm text-gray-500 sm:mt-0">
@@ -524,10 +559,9 @@ export default function CreateList() {
 
 
 
-
-        
-        
+        </div>
       </div>
     </div>
+    </>
   )
 }
