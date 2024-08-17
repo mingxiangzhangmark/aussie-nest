@@ -9,3 +9,11 @@ body{
 html {
     overflow-y: scroll;
   }
+.swiper-button-next:after,
+.swiper-button-prev:after{
+      color: #f3f4f4;
+}
+.swiper-pagination-progressbar .swiper-pagination-progressbar-fill .swiper-pagination-bullet .swiper-pagination-bullet-active{
+    background: #74b9ff !important
+}
+  
