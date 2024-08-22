@@ -14,13 +14,11 @@ export default function AccountDetail() {
   
   const [formData, setFormData] = useState({
     name: '',
-    //auth.currentUser.displayName
     email: '',
-    // auth.currentUser.email
     description: '',
     phone: '',
   });
-    const { name, email,description,phone } = formData;
+  const { name, email,description,phone } = formData;
 
     useEffect(() => {
       async function fetchListing() {
@@ -131,7 +129,7 @@ export default function AccountDetail() {
               
               />
             </div>
-
+ 
             <div>
               {/* <label className="sr-only" htmlFor="phone">Phone</label> */}
               <input

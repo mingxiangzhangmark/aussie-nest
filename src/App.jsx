@@ -16,6 +16,8 @@ import MyListing from "./pages/MyListing";
 import PrivateRoute from "./components/PrivateRoute";
 import EditListing from "./pages/EditListing";
 import PropertyDetail from "./pages/PropertyDetail";
+import Rent from "./pages/Rent";
+import Sale from "./pages/Sale";
 // import Listing from "./pages/Listing";
 
 
@@ -66,6 +68,9 @@ function App() {
         { path: '/signIn', element: <SignIn /> },
         { path: '/signUp', element: <SignUp /> },
         { path: '/offer', element: <Offer /> },
+        { path: '/category/rent', element: <Rent /> },
+        { path: '/category/sell', element: <Sale/> },
+        // { path: '/category/:categoryName', element: <Sale/> },
         {path: 'edit-listing/:listingId', element: <EditListing />},
         {path: "/category/:categoryName/:listingId",element: <PropertyDetail />},
         {

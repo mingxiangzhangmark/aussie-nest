@@ -43,7 +43,7 @@ export default function MyProfileSideBar() {
                 className="flex rounded-lg px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-700"
               >
                 <div className="text-xl px-2 "><FaHome /></div>
-                My Home
+                My Sale & Rent
               </a>
             </li>
             <li className="flex rounded-lg hover:bg-gray-100">
@@ -52,7 +52,7 @@ export default function MyProfileSideBar() {
                 className="flex rounded-lg px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
               >
                 <div className="text-xl px-2"><FaListUl /></div>
-                My listings
+                My Properties
               </a>
             </li>
             <li >
@@ -61,7 +61,7 @@ export default function MyProfileSideBar() {
                   className="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
                 > <div className="text-xl px-2"><MdOutlineSettings /></div>
                   <span className="text-base font-medium"> Account Settings </span>
-                  <span className="shrink-0 transition duration-300 group-open:-rotate-180">
+                  <span className="ml-1 shrink-0 transition duration-300 group-open:-rotate-180">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="ml-2 h-5 w-5"
@@ -83,7 +83,7 @@ export default function MyProfileSideBar() {
                       className="flex rounded-lg px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
                     >
                       <div className="text-xl px-2"><TbArrowsExchange /></div>
-                      Change Info
+                      Change Profile
                     </a>
                   </li >
                   <li className="flex rounded-lg hover:bg-gray-100">

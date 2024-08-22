@@ -123,7 +123,7 @@ export default function PropertyDetail() {
       <div className="m-4 flex flex-col md:flex-row max-w-6xl lg:mx-auto p-4 rounded-lg shadow-lg bg-white lg:space-x-5">
         <div className=" w-full ">
           <p className="text-2xl font-bold mb-3 text-blue-900">
-            {listing.name} - ${listing.regularPrice}
+            {listing.name} - ${listing.type === "rent" ? listing.regularPrice +"/month" : listing.regularPrice}
           </p>
           <p className="flex items-center mt-6 mb-3 font-semibold">
             <FaMapMarkerAlt className="text-green-700 mr-1" />
@@ -140,8 +140,11 @@ export default function PropertyDetail() {
             )}
           </div>
           <p className="mt-3 mb-3">
-            <span className="font-semibold">Description - </span>
-            {listing.description}
+            <span className="font-semibold" style={{ whiteSpace: "pre-wrap" }}>Description - </span>
+            {/* {listing.description} */}
+            {listing.description.split('\n').map((line, index) => (
+    <p key={index}>{line}</p>
+  ))}
           </p>
           <ul className="flex items-center space-x-2 sm:space-x-10 text-sm font-semibold mb-6">
             <li className="flex items-center whitespace-nowrap">

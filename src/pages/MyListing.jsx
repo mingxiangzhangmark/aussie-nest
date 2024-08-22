@@ -49,7 +49,7 @@ export default function MyListing() {
   return (
     <div className="flex h-screen">
       <MyProfileSideBar />
-      <div className="flex-grow bg-white rounded-lg border p-6 m-4 ml-[22%] overflow-y-auto">
+      <div className="flex-grow bg-white rounded-lg border p-6 m-4 ml-[21%] overflow-y-auto">
         <h1 className="text-2xl font-bold mb-4">My Property for rent / sell</h1>
         <p className="text-gray-700">
           Here you can manage your property details, update your information, and configure your settings.

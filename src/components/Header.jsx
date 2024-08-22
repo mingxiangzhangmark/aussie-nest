@@ -45,9 +45,9 @@ export default function Header() {
             </a>
 
             <ul className="flex space-x-8 ">
-                <li><a href="/" className= {`font-medium py-4 text-lg border-b-[3px] transition duration-300 ease-in-out text-gray-700 ${pathRoute("/") ? "text-blue-600 border-b-blue-600" : "border-b-transparent hover:text-gray-500"}`}>Home</a></li>
-                <li><a href="/offer" className={`font-medium text-gray-700 py-4 text-lg border-b-[3px] transition duration-300 ease-in-out  ${pathRoute("/offer") ? "text-blue-500 border-b-blue-600" : "border-b-transparent hover:text-gray-500"}`}>Offer</a></li>
-                <li><a href="/about" className={`font-medium text-gray-700 py-4 text-lg border-b-[3px] transition duration-300 ease-in-out  ${pathRoute("/about") ? "text-blue-500 border-b-blue-600" : "border-b-transparent hover:text-gray-500"}`}>About</a></li>
+                <li><a href="/" className= {`font-medium pt-4 pb-[14px] text-lg border-b-[3px] transition duration-300 ease-in-out text-gray-700 ${pathRoute("/") ? "text-blue-600 border-b-blue-600" : "border-b-transparent hover:text-gray-500"}`}>Home</a></li>
+                <li><a href="/category/sell" className={`font-medium text-gray-700 pt-4 pb-[14px] text-lg border-b-[3px] transition duration-300 ease-in-out  ${pathRoute("/category/sell") ? "text-blue-500 border-b-blue-600" : "border-b-transparent hover:text-gray-500"}`}>Sale</a></li>
+                <li><a href="/category/rent" className={`font-medium text-gray-700 pt-4 pb-[14px] text-lg border-b-[3px] transition duration-300 ease-in-out  ${pathRoute("/category/rent") ? "text-blue-500 border-b-blue-600" : "border-b-transparent hover:text-gray-500"}`}>Rent</a></li>
 
 
 
