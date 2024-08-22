@@ -11,4 +11,5 @@ export default defineConfig({
   resolve: {
     mainFields: [],
   },
+  base: './',  // 使用相对路径
 })
