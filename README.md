@@ -4,11 +4,11 @@ Aussienest is a real estate sales and rental website where people can browse pro
 
 Live demo link: https://aussienest.vercel.app/
 
-Front-end: React, Tailwind CSS
-Back-end: JavaScript
-Database: Firestore/Firebase
-Deploy: Vercel
-Tools: Router, React-Moment, Google Map, Google Auth, React toastify, swiper, uuid
+- Front-end: React, Tailwind CSS
+- Back-end: JavaScript
+- Database: Firestore/Firebase
+- Deploy: Vercel
+- Tools: Router, React-Moment, Google Map, Google Auth, React toastify, swiper, uuid
 
 website Overview:
 
