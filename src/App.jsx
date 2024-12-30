@@ -18,7 +18,7 @@ import EditListing from "./pages/EditListing";
 import PropertyDetail from "./pages/PropertyDetail";
 import Rent from "./pages/Rent";
 import Sale from "./pages/Sale";
-// import Listing from "./pages/Listing";
+import { Analytics } from '@vercel/analytics/react';
 
 
 
@@ -54,7 +54,7 @@ import Sale from "./pages/Sale";
 // }
 // export default App
 
-
+ 
 
 function App() {
   const router = createBrowserRouter([
@@ -91,7 +91,11 @@ function App() {
   ]);
 
   return (
-    <RouterProvider router={router} />
+    <div>
+       <RouterProvider router={router} />
+    <Analytics />
+    </div>
+   
   );
 }
 
